@@ -1,23 +1,44 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
+  <div>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">vue版炉石卡牌模拟器</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><router-link to="/card">{{ tab1 }}</router-link></li>
+            <li><router-link to="/tab2">{{ tab2 }}</router-link></li>
+            <li><router-link to="/tab3">{{ tab3 }}</router-link></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  data: function() {
+    return {
+      tab1 : '卡牌',
+      tab2 : '组卡',
+      tab3 : '卡组',
+    }
+  }
 }
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
