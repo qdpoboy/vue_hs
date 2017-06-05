@@ -97,13 +97,25 @@
         <div class="col-md-12">
           <ul class="list_ul">
             <li v-for="d in card_data">
-              <router-link :to="{path:'/card/'+d.id}">
+              <router-link :to="{path:'/card/'+d.id}" target="_blank">
                 <img class="card-thumb" v-bind:src="d.img_url">
               </router-link>
             </li>
           </ul>
         </div>
       </div>
+    </div>
+    <div class="container">
+    <nav aria-label="Page navigation" class="pull-right">
+      <ul class="pagination">
+        <li :class="{disabled:now_page===1}" @click="toggle_previous()">
+          <a href="javascript:;" aria-label="Previous">上一页</a>
+        </li>
+        <li :class="{disabled:now_page===page_num}" @click="toggle_next()">
+          <a href="javascript:;" aria-label="Next">下一页</a>
+        </li>
+      </ul>
+    </nav>
     </div>
   </div>
 </template>
@@ -113,7 +125,9 @@ export default {
   name: 'list',
   data: function() {
     return {
-      card_data : [],
+      card_data: [],
+      page_num: 0,
+      now_page: 1,
       active_role: -1,
       active_ji: -1,
       active_cost: -1,
@@ -141,21 +155,40 @@ export default {
     //},function(res){
     //  console.error(res);
     //});
-    this.$http.jsonp('http://localhost/test/dao/index.php?m=api&a=get_card_list_jsonp', {}, {
-      emulateJSON: true
-    }).then(function(res) {
-      this.card_data = res.data;
-    }, function(res) {
-      console.error(res);
-    });
+    this.get_data_list();
   },
   methods: {
+
+    get_data_list() {
+      this.$http.jsonp('http://localhost/test/dao/index.php?m=api&a=get_card_list_jsonp', {
+        params:{
+          active_role: this.active_role,
+          active_ji: this.active_ji,
+          active_cost: this.active_cost,
+          active_type: this.active_type,
+          active_race: this.active_race,
+          active_rarity: this.active_rarity,
+          active_feat: this.active_feat,
+          active_atk: this.active_atk,
+          active_health: this.active_health,
+          page: this.now_page
+        }
+      }, {
+        emulateJSON: true
+      }).then(function(res) {
+        this.page_num = res.data.page_count;
+        this.card_data = res.data.data;
+      }, function(res) {
+        console.error(res);
+      });
+    },
     toggle_role(i, v) {
       if(this.active_role == i){//取消选中
         this.active_role = -1;
       }else{
         this.active_role = i;
       }
+      this.get_data_list();
     },
     toggle_ji(i, v) {
       if(this.active_ji == i){//取消选中
@@ -163,6 +196,7 @@ export default {
       }else{
         this.active_ji = i;
       }
+      this.get_data_list();
     },
     toggle_cost(i, v) {
       if(this.active_cost == i){//取消选中
@@ -170,6 +204,7 @@ export default {
       }else{
         this.active_cost = i;
       }
+      this.get_data_list();
     },
     toggle_type(i, v) {
       if(this.active_type == i){//取消选中
@@ -177,6 +212,7 @@ export default {
       }else{
         this.active_type = i;
       }
+      this.get_data_list();
     },
     toggle_race(i, v) {
       if(this.active_race == i){//取消选中
@@ -184,6 +220,7 @@ export default {
       }else{
         this.active_race = i;
       }
+      this.get_data_list();
     },
     toggle_rarity(i, v) {
       if(this.active_rarity == i){//取消选中
@@ -191,6 +228,7 @@ export default {
       }else{
         this.active_rarity = i;
       }
+      this.get_data_list();
     },
     toggle_feat(i, v) {
       if(this.active_feat == i){//取消选中
@@ -198,6 +236,7 @@ export default {
       }else{
         this.active_feat = i;
       }
+      this.get_data_list();
     },
     toggle_atk(i, v) {
       if(this.active_atk == i){//取消选中
@@ -205,6 +244,7 @@ export default {
       }else{
         this.active_atk = i;
       }
+      this.get_data_list();
     },
     toggle_health(i, v) {
       if(this.active_health == i){//取消选中
@@ -212,6 +252,21 @@ export default {
       }else{
         this.active_health = i;
       }
+      this.get_data_list();
+    },
+    toggle_next(){
+      if(this.now_page === this.page_num){
+        return false;
+      }
+      this.now_page = this.now_page + 1;
+      this.get_data_list();
+    },
+    toggle_previous(){
+      if(this.now_page == 1){
+        return false;
+      }
+      this.now_page = this.now_page - 1;
+      this.get_data_list();
     },
   }
 }
