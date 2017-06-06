@@ -183,6 +183,7 @@ export default {
       });
     },
     toggle_role(i, v) {
+      this.now_page = 1;
       if(this.active_role == i){//取消选中
         this.active_role = -1;
       }else{
@@ -191,6 +192,7 @@ export default {
       this.get_data_list();
     },
     toggle_ji(i, v) {
+      this.now_page = 1;
       if(this.active_ji == i){//取消选中
         this.active_ji = -1;
       }else{
@@ -199,6 +201,7 @@ export default {
       this.get_data_list();
     },
     toggle_cost(i, v) {
+      this.now_page = 1;
       if(this.active_cost == i){//取消选中
         this.active_cost = -1;
       }else{
@@ -207,6 +210,7 @@ export default {
       this.get_data_list();
     },
     toggle_type(i, v) {
+      this.now_page = 1;
       if(this.active_type == i){//取消选中
         this.active_type = -1;
       }else{
@@ -215,6 +219,7 @@ export default {
       this.get_data_list();
     },
     toggle_race(i, v) {
+      this.now_page = 1;
       if(this.active_race == i){//取消选中
         this.active_race = -1;
       }else{
@@ -223,6 +228,7 @@ export default {
       this.get_data_list();
     },
     toggle_rarity(i, v) {
+      this.now_page = 1;
       if(this.active_rarity == i){//取消选中
         this.active_rarity = -1;
       }else{
@@ -231,6 +237,7 @@ export default {
       this.get_data_list();
     },
     toggle_feat(i, v) {
+      this.now_page = 1;
       if(this.active_feat == i){//取消选中
         this.active_feat = -1;
       }else{
@@ -239,6 +246,7 @@ export default {
       this.get_data_list();
     },
     toggle_atk(i, v) {
+      this.now_page = 1;
       if(this.active_atk == i){//取消选中
         this.active_atk = -1;
       }else{
@@ -247,6 +255,7 @@ export default {
       this.get_data_list();
     },
     toggle_health(i, v) {
+      this.now_page = 1;
       if(this.active_health == i){//取消选中
         this.active_health = -1;
       }else{
