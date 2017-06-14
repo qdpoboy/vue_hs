@@ -97,7 +97,7 @@
         <div class="col-md-12">
           <ul class="list_ul">
             <li v-for="d in card_data">
-              <router-link :to="{path:'/card/'+d.id}" target="_blank">
+              <router-link :to="{path:'/card/'+d.id}">
                 <img class="card-thumb" v-bind:src="d.img_url">
               </router-link>
             </li>

@@ -19,3 +19,8 @@ li.active{
 	width: 184px;
     height: 261px;
 }
+/*卡牌详情页*/
+.card-info-des{
+	width: 300px;
+	float: right;
+}
