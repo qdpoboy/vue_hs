@@ -9,27 +9,27 @@
           <td>{{ card_info.name }}</td>
         </tr>
         <tr>
-          <td>卡牌名称</td>
-          <td>123</td>
-        </tr>
-        <tr>
-          <td>卡牌名称</td>
+          <td>简介</td>
           <td></td>
         </tr>
         <tr>
-          <td>卡牌名称</td>
+          <td>评语</td>
           <td></td>
         </tr>
         <tr>
-          <td>卡牌名称</td>
+          <td>职业</td>
           <td></td>
         </tr>
         <tr>
-          <td>卡牌名称</td>
+          <td>稀有度</td>
           <td></td>
         </tr>
         <tr>
-          <td>卡牌名称</td>
+          <td>来源</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>类型</td>
           <td></td>
         </tr>
       </tbody>
