@@ -5,7 +5,7 @@
     <table class="table table-hover">
       <tbody>
         <tr>
-          <td width="100px">卡牌名称</td>
+          <td width="80px">卡牌名称</td>
           <td>{{ card_info.name }}</td>
         </tr>
         <tr>
@@ -18,19 +18,19 @@
         </tr>
         <tr>
           <td>职业</td>
-          <td></td>
+          <td>{{ card_info.career_name }}</td>
         </tr>
         <tr>
           <td>稀有度</td>
-          <td></td>
+          <td>{{ card_info.rarity_name }}</td>
         </tr>
         <tr>
           <td>来源</td>
-          <td></td>
+          <td>{{ card_info.card_set_name }}</td>
         </tr>
         <tr>
           <td>类型</td>
-          <td></td>
+          <td>{{ card_info.card_type_name }}</td>
         </tr>
       </tbody>
     </table>
