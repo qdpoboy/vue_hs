@@ -13,8 +13,8 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li class="active" @click="change_active(0)"><router-link to="/card">{{ tab1 }}</router-link></li>
-            <li @click="change_active(1)"><router-link to="/tab2">{{ tab2 }}</router-link></li>
+            <li @click="change_active(0)"><router-link to="/card">{{ tab1 }}</router-link></li>
+            <li @click="change_active(1)"><router-link to="/build">{{ tab2 }}</router-link></li>
             <li @click="change_active(2)"><router-link to="/tab3">{{ tab3 }}</router-link></li>
           </ul>
         </div>
@@ -32,6 +32,12 @@ export default {
       tab1 : '卡牌',
       tab2 : '组卡',
       tab3 : '卡组',
+    }
+  },
+  mounted: function(){
+    console.log(this.$route);
+    if(this.$route.path == '/' || this.$route.path == '/card'){
+      this.change_active(0);
     }
   },
   methods:{
