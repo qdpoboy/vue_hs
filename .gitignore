@@ -1,5 +1,6 @@
 .DS_Store
 .pyc
+.idea
 node_modules/
 dist/
 npm-debug.log*

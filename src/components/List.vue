@@ -6,7 +6,7 @@
           <ul class="list_ul">
             <li><b>英雄</b></li>
             <li @click="toggle_role(tab.i, tab.t)" v-for="tab in tabs_role" :class="{active:active_role===tab.i}">
-              {{tab.t}}       
+              {{tab.t}}
             </li>
           </ul>
         </div>
@@ -16,7 +16,7 @@
           <ul class="list_ul">
             <li><b>卡牌集</b></li>
             <li @click="toggle_ji(tab.i, tab.t)" v-for="tab in tabs_ji" :class="{active:active_ji===tab.i}">
-              {{tab.t}}       
+              {{tab.t}}
             </li>
           </ul>
         </div>
@@ -26,7 +26,7 @@
           <ul class="list_ul">
             <li><b>法力</b></li>
             <li @click="toggle_cost(tab.i, tab.t)" v-for="tab in tabs_cost" :class="{active:active_cost===tab.i}">
-              {{tab.t}}       
+              {{tab.t}}
             </li>
           </ul>
         </div>
@@ -36,7 +36,7 @@
           <ul class="list_ul">
             <li><b>类型</b></li>
             <li @click="toggle_type(tab.i, tab.t)" v-for="tab in tabs_type" :class="{active:active_type===tab.i}">
-              {{tab.t}}       
+              {{tab.t}}
             </li>
           </ul>
         </div>
@@ -46,7 +46,7 @@
           <ul class="list_ul">
             <li><b>种族</b></li>
             <li @click="toggle_race(tab.i, tab.t)" v-for="tab in tabs_race" :class="{active:active_race===tab.i}">
-              {{tab.t}}       
+              {{tab.t}}
             </li>
           </ul>
         </div>
@@ -56,7 +56,7 @@
           <ul class="list_ul">
             <li><b>等级</b></li>
             <li @click="toggle_rarity(tab.i, tab.t)" v-for="tab in tabs_rarity" :class="{active:active_rarity===tab.i}">
-              {{tab.t}}       
+              {{tab.t}}
             </li>
           </ul>
         </div>
@@ -66,7 +66,7 @@
           <ul class="list_ul">
             <li><b>特性</b></li>
             <li @click="toggle_feat(tab.i, tab.t)" v-for="tab in tabs_feat" :class="{active:active_feat===tab.i}">
-              {{tab.t}}       
+              {{tab.t}}
             </li>
           </ul>
         </div>
@@ -76,7 +76,7 @@
           <ul class="list_ul">
             <li><b>攻击</b></li>
             <li @click="toggle_atk(tab.i, tab.t)" v-for="tab in tabs_atk" :class="{active:active_atk===tab.i}">
-              {{tab.t}}       
+              {{tab.t}}
             </li>
           </ul>
         </div>
@@ -86,7 +86,7 @@
           <ul class="list_ul">
             <li><b>生命</b></li>
             <li @click="toggle_health(tab.i, tab.t)" v-for="tab in tabs_health" :class="{active:active_health===tab.i}">
-              {{tab.t}}       
+              {{tab.t}}
             </li>
           </ul>
         </div>
@@ -96,7 +96,7 @@
       <div class="row">
         <div class="col-md-12">
           <ul class="list_ul">
-            <li v-for="d in card_data">
+            <li v-for="d in card_data" v-if="is_show">
               <router-link :to="{path:'/card/'+d.id}">
                 <img class="card-thumb" v-bind:src="d.img_url">
               </router-link>
@@ -125,6 +125,7 @@ export default {
   name: 'list',
   data: function() {
     return {
+      is_show : true,
       card_data: [],
       page_num: 0,
       now_page: 1,
@@ -160,6 +161,7 @@ export default {
   methods: {
 
     get_data_list() {
+      this.is_show = false;
       //http://localhost/test/dao/index.php?m=api&a=get_card_list_jsonp
       this.$http.jsonp('https://mood123.com/index1.php?m=api&a=get_card_list_jsonp', {
         params:{
@@ -177,6 +179,7 @@ export default {
       }, {
         emulateJSON: true
       }).then(function(res) {
+        this.is_show = true;
         this.page_num = res.data.page_count;
         this.card_data = res.data.data;
       }, function(res) {
