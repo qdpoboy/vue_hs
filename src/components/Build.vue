@@ -64,7 +64,28 @@
       </div>
     </div>
     <div>
-
+      <div class="build_left">
+        <div class="top">
+          <div>
+            <button class="btn btn-default" type="submit">职业卡</button>
+            <button class="btn btn-default" type="submit">中立卡</button>
+            1 2 3 4 5 6 7+
+            <nav aria-label="Page navigation" class="pull-right">
+              <ul class="pagination">
+                <li :class="{disabled:now_page===1}" @click="toggle_previous()">
+                  <a href="javascript:;" aria-label="Previous">上一页</a>
+                </li>
+                <li :class="{disabled:now_page===page_num}" @click="toggle_next()">
+                  <a href="javascript:;" aria-label="Next">下一页</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="top"></div>
+      </div>
+      <div class="build_right">
+      </div>
     </div>
   </div>
 </template>
