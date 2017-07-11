@@ -67,9 +67,27 @@
       <div class="build_left">
         <div class="top">
           <div>
-            <button class="btn btn-default" type="submit">职业卡</button>
-            <button class="btn btn-default" type="submit">中立卡</button>
-            1 2 3 4 5 6 7+
+            <nav aria-label="Page navigation" class="pull-left">
+              <ul class="pagination">
+                <li @click="toggle_previous()">
+                  <a href="javascript:;" aria-label="Previous">职业卡</a>
+                </li>
+                <li @click="toggle_next()">
+                  <a href="javascript:;" aria-label="Next">中立卡</a>
+                </li>
+              </ul>
+            </nav>
+            <nav aria-label="Page navigation" class="pull-left">
+              <ul class="pagination cost">
+                <li @click="toggle_previous()">1</li>
+                <li @click="toggle_previous()">2</li>
+                <li @click="toggle_previous()">3</li>
+                <li @click="toggle_previous()">4</li>
+                <li @click="toggle_previous()">5</li>
+                <li @click="toggle_previous()">6</li>
+                <li @click="toggle_previous()">7+</li>
+              </ul>
+            </nav>
             <nav aria-label="Page navigation" class="pull-right">
               <ul class="pagination">
                 <li :class="{disabled:now_page===1}" @click="toggle_previous()">
@@ -95,7 +113,8 @@ export default {
   name: 'build',
   data: function() {
     return {
-
+      now_page : 1,
+      page_num : 0
     }
   },
   mounted: function() {

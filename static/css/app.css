@@ -1,26 +1,42 @@
 li.active{
-	color: #df691a;
-	font-weight: bold;
+  color: #df691a;
+  font-weight: bold;
 }
 .router-link-active{
-	color: #555;
-    background-color: #e7e7e7;
+  color: #555;
+  background-color: #e7e7e7;
 }
 .list_ul{
-	list-style: none;
-	padding: 0;
+  list-style: none;
+  padding: 0;
 }
 .list_ul li{
-	display: inline-block;
-	padding: 3px;
-	cursor: pointer;
+  display: inline-block;
+  padding: 3px;
+  cursor: pointer;
 }
 .card-thumb{
-	width: 184px;
-    height: 261px;
+  width: 184px;
+  height: 261px;
 }
 /*卡牌详情页*/
 .card-info-des{
-	width: 300px;
-	float: right;
+  width: 300px;
+  float: right;
+}
+/*组卡*/
+.build_left{
+  width: 70%;
+}
+.build_left .cost li{
+  display: inline-block;
+  margin-left: 30px;
+  height: 30px;
+  width: 20px;
+  padding-top: 5px;
+  background-color: #2e6da4;
+  text-align: center;
+  border-radius: 7px;
+  color: #FFFFFF;
+  font-weight: bold;
 }
