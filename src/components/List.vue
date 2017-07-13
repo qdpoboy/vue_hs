@@ -150,19 +150,13 @@ export default {
     }
   },
   mounted: function() {
-    //this.$http.get('http://localhost/test/dao/index.php?m=api&a=get_card_list', {})
-    //.then(function(rdata){
-    //  this.card_data = rdata;
-    //},function(res){
-    //  console.error(res);
-    //});
     this.get_data_list();
   },
   methods: {
 
     get_data_list() {
       this.is_show = false;
-      //http://localhost/test/dao/index.php?m=api&a=get_card_list_jsonp
+      //http://hs_cms/index.php?m=api&a=get_card_list_jsonp
       this.$http.jsonp('https://mood123.com/index1.php?m=api&a=get_card_list_jsonp', {
         params:{
           active_role: this.active_role,

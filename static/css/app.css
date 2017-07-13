@@ -26,7 +26,7 @@ li.active{
 }
 /*组卡*/
 .build_left{
-  width: 70%;
+  width: 760px;
 }
 .build_left .cost li{
   display: inline-block;
@@ -39,4 +39,8 @@ li.active{
   border-radius: 7px;
   color: #FFFFFF;
   font-weight: bold;
+  cursor: pointer;
+}
+.build_left .cost li.active{
+  color: red;
 }
