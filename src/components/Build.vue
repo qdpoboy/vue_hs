@@ -186,7 +186,21 @@ export default {
       this.now_page = 1;
       this.active_role = 0;
       this.get_data_list();
-    }
+    },
+    toggle_next(){
+      if(this.now_page === this.page_num){
+        return false;
+      }
+      this.now_page = this.now_page + 1;
+      this.get_data_list();
+    },
+    toggle_previous(){
+      if(this.now_page == 1){
+        return false;
+      }
+      this.now_page = this.now_page - 1;
+      this.get_data_list();
+    },
   }
 }
 </script>
