@@ -1,34 +1,41 @@
-li.active{
+li.active {
   color: #df691a;
   font-weight: bold;
 }
-.router-link-active{
+
+.router-link-active {
   color: #555;
   background-color: #e7e7e7;
 }
-.list_ul{
+
+.list_ul {
   list-style: none;
   padding: 0;
 }
-.list_ul li{
+
+.list_ul li {
   display: inline-block;
   padding: 3px;
   cursor: pointer;
 }
-.card-thumb{
+
+.card-thumb {
   width: 184px;
   height: 261px;
 }
+
 /*卡牌详情页*/
-.card-info-des{
+.card-info-des {
   width: 300px;
   float: right;
 }
+
 /*组卡*/
-.build_left{
+.build_left {
   width: 760px;
 }
-.build_left .cost li{
+
+.build_left .cost li {
   display: inline-block;
   margin-left: 30px;
   height: 30px;
@@ -41,6 +48,47 @@ li.active{
   font-weight: bold;
   cursor: pointer;
 }
-.build_left .cost li.active{
+
+.build_left .cost li.active {
   color: red;
+}
+
+.build_right {
+  width: 320px;
+  border: 1px solid #ccc;
+  padding: 20px 10px;
+}
+
+.build_right .top {
+  text-align: center;
+}
+
+.build_right .top .btn {
+  width: 100px;
+  margin-right: 45px;
+}
+
+.build_right .bottom {
+  margin-top: 20px;
+}
+
+.card_team_li {
+  list-style: none;
+  height: 25px;
+  width: 100%;
+  font-size: 16px;
+}
+
+.card_team_li .cost {
+  display: inline-block;
+  line-height: 25px;
+  height: 25px;
+  width: 25px;
+  text-align: center;
+  background: url('../image/cost.png') no-repeat;
+  color: #fff;
+}
+
+.card_team_li .card_li_num {
+  display: inline-block;
 }

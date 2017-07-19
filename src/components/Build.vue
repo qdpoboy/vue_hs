@@ -1,10 +1,12 @@
 <template>
   <div class="container">
-    <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog"
+         aria-labelledby="myLargeModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span>
+            </button>
             <h4 class="modal-title" id="myModalLabel">组建卡组</h4>
           </div>
           <div class="modal-body">
@@ -54,7 +56,7 @@
                   <img @click="is_start_build(10)" src="http://cha.17173.com/hs/img/class/builder_s_10.png">
                 </router-link>
               </li>
-          </ul>
+            </ul>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -64,14 +66,14 @@
       </div>
     </div>
     <div>
-      <div class="build_left">
+      <div class="build_left pull-left">
         <div class="top">
           <nav aria-label="Page navigation" class="pull-left">
             <ul class="pagination">
-              <li @click="toggle_tab_zhiye()">
+              <li class="active" @click="toggle_tab_role($event, true)">
                 <a href="javascript:;" aria-label="Previous">职业卡</a>
               </li>
-              <li @click="toggle_tab_zhongli()">
+              <li @click="toggle_tab_role($event, false)">
                 <a href="javascript:;" aria-label="Next">中立卡</a>
               </li>
             </ul>
@@ -103,7 +105,7 @@
           <div class="row">
             <div class="col-md-12">
               <ul class="list_ul" v-if="is_show">
-                <li v-for="d in card_data" @click="build_in(d.id)">
+                <li v-for="d in card_data" @click="build_in(d.id, d.name, d.cost, d.rarity)">
                   <img class="card-thumb" v-bind:src="d.img_url">
                 </li>
               </ul>
@@ -111,96 +113,144 @@
           </div>
         </div>
       </div>
-      <div class="build_right">
+      <div class="build_right pull-right">
+        <div class="top">
+          <a class="btn btn-default">新建卡组</a> <a class="btn btn-default">分享</a>
+        </div>
+        <div class="bottom">
+          <li class="card_team_li pull-left" v-for="item in card_team">
+            <span class="cost">{{ item.cost }}</span>&nbsp;&nbsp;&nbsp;&nbsp;{{ item.name }}<span
+            class="card_li_num pull-right">{{ item.num }}</span>
+          </li>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'build',
-  data: function() {
-    return {
-      is_show : true,
-      active_role : 0,
-      active_cost : -1,
-      card_data : [],
-      now_page : 1,
-      page_num : 0
-    }
-  },
-  mounted: function() {
-    var r = this.$route.query.r;
-    if(r > 0){
-      //$('#myModal').modal('hide');
-      this.is_start_build(r);
-    }else{
-      $('#myModal').modal({backdrop: 'static'});
-    }
-  },
-  methods:{
-    is_start_build(n) {
-      $('#myModal').modal('hide');
-      this.active_role = n;
-      this.get_data_list();
+  export default {
+    name: 'build',
+    data: function () {
+      return {
+        is_show: true,
+        active_role: 0,
+        active_cost: -1,
+        card_data: [],
+        now_page: 1,
+        page_num: 0,
+        card_team_num: 0,
+        card_team: []
+      }
     },
-    get_data_list() {
-      this.is_show = false;
-      //http://hs_cms/index.php?m=api&a=get_card_list_jsonp
-      this.$http.jsonp('https://mood123.com/index1.php?m=api&a=get_card_list_jsonp', {
-        params:{
-          limit : 12,
-          active_role: this.active_role,
-          active_cost: this.active_cost,
-          page: this.now_page
+    mounted: function () {
+      var r = this.$route.query.r;
+      if (r > 0) {
+        //$('#myModal').modal('hide');
+        this.is_start_build(r);
+      } else {
+        $('#myModal').modal({backdrop: 'static'});
+      }
+    },
+    methods: {
+      is_start_build(n) {
+        $('#myModal').modal('hide');
+        this.active_role = n;
+        this.get_data_list();
+      },
+      get_data_list() {
+        this.is_show = false;
+        //http://hs_cms/index.php?m=api&a=get_card_list_jsonp
+        this.$http.jsonp('https://mood123.com/index1.php?m=api&a=get_card_list_jsonp', {
+          params: {
+            limit: 12,
+            active_role: this.active_role,
+            active_cost: this.active_cost,
+            page: this.now_page
+          }
+        }, {
+          emulateJSON: true
+        }).then(function (res) {
+          this.is_show = true;
+          this.page_num = res.data.page_count;
+          this.card_data = res.data.data;
+        }, function (res) {
+          console.error(res);
+        });
+      },
+      build_in(card_id, card_name, card_cost, card_rarity) {
+        var vue_this = this;
+        var is_in_key = -1;
+        if (this.card_team.length == 0) {
+          vue_this.card_team.push({id: card_id, name: card_name, cost: card_cost, num: 1});
+        } else if (this.card_team.length == 30) {
+          alert('最多30张卡牌');
+        } else {
+          $.each(this.card_team, function (i, v) {
+            console.log(i);
+            console.log(v);
+            if (v.id == card_id) {
+              is_in_key = i;
+              if (v.num == 1) {
+                console.log('ddddddd');
+                if(card_rarity < 5){
+                  v.num++;
+                  vue_this.card_team[i].num = v.num;
+                }else{
+                  alert('该卡牌最多1张');
+                }
+                return false;
+              } else if (v.num == 2) {
+                console.log('ccccccc');
+                alert('该卡牌最多2张');
+                return false;
+              }
+            }
+          });
+          if (is_in_key == -1) {
+            vue_this.card_team.push({id: card_id, name: card_name, cost: card_cost, num: 1});
+          }
         }
-      }, {
-        emulateJSON: true
-      }).then(function(res) {
-        this.is_show = true;
-        this.page_num = res.data.page_count;
-        this.card_data = res.data.data;
-      }, function(res) {
-        console.error(res);
-      });
-    },
-    build_in(card_id) {
-      console.log(card_id);
-    },
-    toggle_cost(i) {
-      this.now_page = 1;
-      if(this.active_cost == i){//取消选中
-        this.active_cost = -1;
-      }else{
-        this.active_cost = i;
-      }
-      this.get_data_list(this.$route.query.r);
-    },
-    toggle_tab_zhiye() {
-      this.now_page = 1;
-      this.active_role = this.$route.query.r;
-      this.get_data_list();
-    },
-    toggle_tab_zhongli() {
-      this.now_page = 1;
-      this.active_role = 0;
-      this.get_data_list();
-    },
-    toggle_next(){
-      if(this.now_page === this.page_num){
-        return false;
-      }
-      this.now_page = this.now_page + 1;
-      this.get_data_list();
-    },
-    toggle_previous(){
-      if(this.now_page == 1){
-        return false;
-      }
-      this.now_page = this.now_page - 1;
-      this.get_data_list();
-    },
+        vue_this.card_team.sort(this.ascend);
+        console.log(vue_this.card_team);
+      },
+      ascend(x,y){
+        return x.cost - y.cost;
+      },
+      toggle_cost(i) {
+        this.now_page = 1;
+        if (this.active_cost == i) {//取消选中
+          this.active_cost = -1;
+        } else {
+          this.active_cost = i;
+        }
+        this.get_data_list(this.$route.query.r);
+      },
+      toggle_tab_role(event, role) {
+        this.now_page = 1;
+        if (role) {
+          this.active_role = this.$route.query.r;
+        } else {
+          this.active_role = 0;
+        }
+        var obj = event.currentTarget;
+        $(obj).addClass('active').siblings('li').removeClass('active');
+        this.get_data_list();
+      },
+      toggle_next() {
+        if (this.now_page === this.page_num) {
+          return false;
+        }
+        this.now_page = this.now_page + 1;
+        this.get_data_list();
+      },
+      toggle_previous() {
+        if (this.now_page == 1) {
+          return false;
+        }
+        this.now_page = this.now_page - 1;
+        this.get_data_list();
+      },
+    }
   }
-}
 </script>
