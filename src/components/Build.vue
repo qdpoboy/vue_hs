@@ -115,12 +115,13 @@
       </div>
       <div class="build_right pull-right">
         <div class="top">
-          <a class="btn btn-default">新建卡组</a> <a class="btn btn-default">分享</a>
+          <a class="btn btn-default">新建卡组</a> <a class="btn btn-default">{{card_team_num}}/30</a>
         </div>
         <div class="bottom">
           <li class="card_team_li pull-left" v-for="item in card_team">
-            <span class="cost">{{ item.cost }}</span>&nbsp;&nbsp;&nbsp;&nbsp;{{ item.name }}<span
-            class="card_li_num pull-right">{{ item.num }}</span>
+            <span class="cost">{{ item.cost }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span v-bind:class="item.color">{{ item.name }}</span>
+            <span class="card_li_num pull-right">{{ item.num }}</span>
           </li>
         </div>
       </div>
@@ -134,6 +135,7 @@
     data: function () {
       return {
         is_show: true,
+        card_color_arr: {1:'',2:'green',3:'blue',4:'violet',5:'orange'},
         active_role: 0,
         active_cost: -1,
         card_data: [],
@@ -183,36 +185,34 @@
         var is_in_key = -1;
         if (this.card_team.length == 0) {
           vue_this.card_team.push({id: card_id, name: card_name, cost: card_cost, num: 1});
+          vue_this.card_team_num++;
         } else if (this.card_team.length == 30) {
           alert('最多30张卡牌');
         } else {
           $.each(this.card_team, function (i, v) {
-            console.log(i);
-            console.log(v);
             if (v.id == card_id) {
               is_in_key = i;
               if (v.num == 1) {
-                console.log('ddddddd');
                 if(card_rarity < 5){
                   v.num++;
                   vue_this.card_team[i].num = v.num;
+                  vue_this.card_team_num++;
                 }else{
                   alert('该卡牌最多1张');
                 }
                 return false;
               } else if (v.num == 2) {
-                console.log('ccccccc');
                 alert('该卡牌最多2张');
                 return false;
               }
             }
           });
           if (is_in_key == -1) {
-            vue_this.card_team.push({id: card_id, name: card_name, cost: card_cost, num: 1});
+            vue_this.card_team_num++;
+            vue_this.card_team.push({id: card_id, name: card_name, cost: card_cost, num: 1, color: this.card_color_arr[card_rarity]});
           }
         }
         vue_this.card_team.sort(this.ascend);
-        console.log(vue_this.card_team);
       },
       ascend(x,y){
         return x.cost - y.cost;

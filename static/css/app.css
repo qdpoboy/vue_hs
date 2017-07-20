@@ -92,3 +92,19 @@ li.active {
 .card_team_li .card_li_num {
   display: inline-block;
 }
+
+.card_team_li .green {
+  color: green;
+}
+
+.card_team_li .blue {
+  color: blue;
+}
+
+.card_team_li .violet {
+  color: violet;
+}
+
+.card_team_li .orange {
+  color: orange;
+}
