@@ -118,7 +118,7 @@
           <a class="btn btn-default">新建卡组</a> <a class="btn btn-default">{{card_team_num}}/30</a>
         </div>
         <div class="bottom">
-          <li class="card_team_li pull-left" v-for="item in card_team">
+          <li class="card_team_li pull-left" v-for="item in card_team" @click="del_card(item.id)">
             <span class="cost">{{ item.cost }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
             <span v-bind:class="item.color">{{ item.name }}</span>
             <span class="card_li_num pull-right">{{ item.num }}</span>
@@ -135,7 +135,7 @@
     data: function () {
       return {
         is_show: true,
-        card_color_arr: {1:'',2:'green',3:'blue',4:'violet',5:'orange'},
+        card_color_arr: {1: '', 2: 'green', 3: 'blue', 4: 'violet', 5: 'orange'},
         active_role: 0,
         active_cost: -1,
         card_data: [],
@@ -183,39 +183,65 @@
       build_in(card_id, card_name, card_cost, card_rarity) {
         var vue_this = this;
         var is_in_key = -1;
+        if (this.card_team_num >= 30) {
+          alert('最多30张卡牌');
+          return false;
+        }
         if (this.card_team.length == 0) {
           vue_this.card_team.push({id: card_id, name: card_name, cost: card_cost, num: 1});
           vue_this.card_team_num++;
-        } else if (this.card_team.length == 30) {
-          alert('最多30张卡牌');
         } else {
           $.each(this.card_team, function (i, v) {
             if (v.id == card_id) {
               is_in_key = i;
               if (v.num == 1) {
-                if(card_rarity < 5){
+                if (card_rarity < 5) {
                   v.num++;
                   vue_this.card_team[i].num = v.num;
                   vue_this.card_team_num++;
-                }else{
-                  alert('该卡牌最多1张');
+                } else {
+                  //alert('该卡牌最多1张');
                 }
                 return false;
               } else if (v.num == 2) {
-                alert('该卡牌最多2张');
+                //alert('该卡牌最多2张');
                 return false;
               }
             }
           });
           if (is_in_key == -1) {
             vue_this.card_team_num++;
-            vue_this.card_team.push({id: card_id, name: card_name, cost: card_cost, num: 1, color: this.card_color_arr[card_rarity]});
+            vue_this.card_team.push({
+              id: card_id,
+              name: card_name,
+              cost: card_cost,
+              num: 1,
+              color: this.card_color_arr[card_rarity]
+            });
           }
         }
         vue_this.card_team.sort(this.ascend);
       },
-      ascend(x,y){
+      ascend(x, y) {
         return x.cost - y.cost;
+      },
+      del_card(card_id) {
+        var vue_this = this;
+        if (vue_this.card_team_num > 0) {
+          $.each(this.card_team, function (i, v) {
+            if (v.id == card_id) {
+              if (v.num == 1) {
+                vue_this.card_team.splice(i, 1);
+                return false;
+              } else if (v.num == 2) {
+                v.num--;
+                vue_this.card_team[i].num = v.num;
+                return false;
+              }
+            }
+          });
+          vue_this.card_team_num--;
+        }
       },
       toggle_cost(i) {
         this.now_page = 1;
