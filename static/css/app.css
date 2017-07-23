@@ -57,6 +57,7 @@ li.active {
   width: 320px;
   border: 1px solid #ccc;
   padding: 20px 10px;
+  background-color: #485563;
 }
 
 .build_right .top {
