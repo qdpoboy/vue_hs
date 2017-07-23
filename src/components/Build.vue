@@ -115,7 +115,7 @@
       </div>
       <div class="build_right pull-right">
         <div class="top">
-          <a class="btn btn-default">新建卡组</a> <a class="btn btn-default">{{card_team_num}}/30</a>
+          <a class="btn btn-default" @click="new_select()">新建卡组</a> <a class="btn btn-default">{{card_team_num}}/30</a>
         </div>
         <div class="bottom">
           <li class="card_team_li pull-left" v-for="item in card_team" @click="del_card(item.id)">
@@ -151,10 +151,13 @@
         //$('#myModal').modal('hide');
         this.is_start_build(r);
       } else {
-        $('#myModal').modal({backdrop: 'static'});
+        this.new_select();
       }
     },
     methods: {
+      new_select() {
+        $('#myModal').modal({backdrop: 'static'});
+      },
       is_start_build(n) {
         $('#myModal').modal('hide');
         this.active_role = n;
