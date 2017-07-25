@@ -1,6 +1,6 @@
 # vue_hs
 
-> A Vue.js project
+> vue.js版炉石卡牌模拟器
 
 ## Build Setup
 
@@ -18,4 +18,11 @@ npm run build
 npm run build --report
 ```
 
+## TODO
+-[ ] 组建卡牌页面，增加分享功能
+-[ ] 组建卡牌，只筛选出标准模式的卡牌
+-[ ] 卡牌优化，有些是旧的卡牌了，没更新
+-[ ] 后台卡牌管理系统
+-[ ] 卡组功能
+ 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
