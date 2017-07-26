@@ -161,6 +161,10 @@
       is_start_build(n) {
         $('#myModal').modal('hide');
         this.active_role = n;
+        this.active_cost = -1;
+        this.now_page = 1;
+        this.card_team_num = 0;
+        this.card_team = [];
         this.get_data_list();
       },
       get_data_list() {
