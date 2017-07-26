@@ -191,7 +191,13 @@
           return false;
         }
         if (this.card_team.length == 0) {
-          vue_this.card_team.push({id: card_id, name: card_name, cost: card_cost, num: 1});
+          vue_this.card_team.push({
+            id: card_id,
+            name: card_name,
+            cost: card_cost,
+            num: 1,
+            color: this.card_color_arr[card_rarity]
+          });
           vue_this.card_team_num++;
         } else {
           $.each(this.card_team, function (i, v) {
