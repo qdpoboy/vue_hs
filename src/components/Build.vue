@@ -58,7 +58,7 @@
               </li>
             </ul>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer hide">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             <button type="button" class="btn btn-primary">选择</button>
           </div>
