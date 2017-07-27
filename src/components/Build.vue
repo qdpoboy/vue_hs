@@ -117,7 +117,12 @@
         <div class="top">
           <a class="btn btn-default" @click="new_select()">新建卡组</a> <a class="btn btn-default">{{card_team_num}}/30</a>
         </div>
+        <br/>
         <div class="middle">
+          <button type="button" class="btn btn-danger" data-container="body" data-toggle="popover" data-placement="top" data-content="">
+            分享链接{{share_url}}&<template v-for="item in card_team">{{item.id}}:{{item.num}}-</template>
+          </button>
+          <br/>
           <li v-for="(item, index) in cost_card_num_arr">
             <div class="middle-li-num">{{item}}</div>
             <div class="middle-li-height" v-bind:style="{height: (item * 10) + 'px'}"></div>
@@ -140,6 +145,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -157,10 +163,12 @@
         page_num: 0,
         card_team_num: 0,
         card_team: [],
-        cost_card_num_arr: [0, 0, 0, 0, 0, 0, 0, 0]
+        cost_card_num_arr: [0, 0, 0, 0, 0, 0, 0, 0],
+        share_url: window.location.href
       }
     },
     mounted: function () {
+      $('[data-toggle="popover"]').popover();
       var r = this.$route.query.r;
       if (r > 0) {
         //$('#myModal').modal('hide');
