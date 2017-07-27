@@ -1,6 +1,7 @@
 # vue_hs
 
-> vue.js版炉石卡牌模拟器
+> vue.js版炉石卡牌模拟器  
+> 线上试用地址 [hscards.icugame.com](http://hscards.icugame.com)
 
 ## Build Setup
 
@@ -19,10 +20,10 @@ npm run build --report
 ```
 
 ## TODO
-- [ ] 组建卡牌页面，增加分享功能
-- [ ] 组建卡牌，只筛选出标准模式的卡牌
-- [ ] 卡牌优化，有些是旧的卡牌了，没更新
+- [ ] 组建卡牌页面，增加分享功能，分费用卡组统计
+- [ ] 组建卡牌，只筛选出当前游戏标准模式的卡牌（或者分为狂野和标准）
+- [ ] 卡牌优化，有些是旧的卡牌了，没更新；卡牌详情页完善
 - [ ] 后台卡牌管理系统
 - [ ] 卡组功能
  
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## FINISHED
