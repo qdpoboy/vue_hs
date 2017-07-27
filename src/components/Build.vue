@@ -58,7 +58,7 @@
               </li>
             </ul>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer hide">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             <button type="button" class="btn btn-primary">选择</button>
           </div>
@@ -161,6 +161,10 @@
       is_start_build(n) {
         $('#myModal').modal('hide');
         this.active_role = n;
+        this.active_cost = -1;
+        this.now_page = 1;
+        this.card_team_num = 0;
+        this.card_team = [];
         this.get_data_list();
       },
       get_data_list() {
@@ -191,7 +195,13 @@
           return false;
         }
         if (this.card_team.length == 0) {
-          vue_this.card_team.push({id: card_id, name: card_name, cost: card_cost, num: 1});
+          vue_this.card_team.push({
+            id: card_id,
+            name: card_name,
+            cost: card_cost,
+            num: 1,
+            color: this.card_color_arr[card_rarity]
+          });
           vue_this.card_team_num++;
         } else {
           $.each(this.card_team, function (i, v) {
