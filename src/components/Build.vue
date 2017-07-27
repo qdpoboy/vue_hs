@@ -117,6 +117,20 @@
         <div class="top">
           <a class="btn btn-default" @click="new_select()">新建卡组</a> <a class="btn btn-default">{{card_team_num}}/30</a>
         </div>
+        <div class="middle">
+          <li v-for="(item, index) in cost_card_num_arr">
+            <div class="middle-li-num">{{item}}</div>
+            <div class="middle-li-height" v-bind:style="{height: (item * 10) + 'px'}"></div>
+            <div class="middle-li-index">
+              <template v-if="index == 7">
+                7+
+              </template>
+              <template v-else>
+                {{index}}
+              </template>
+            </div>
+          </li>
+        </div>
         <div class="bottom">
           <li class="card_team_li pull-left" v-for="item in card_team" @click="del_card(item.id)">
             <span class="cost">{{ item.cost }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -142,7 +156,8 @@
         now_page: 1,
         page_num: 0,
         card_team_num: 0,
-        card_team: []
+        card_team: [],
+        cost_card_num_arr: [0, 0, 0, 0, 0, 0, 0, 0]
       }
     },
     mounted: function () {
@@ -165,6 +180,7 @@
         this.now_page = 1;
         this.card_team_num = 0;
         this.card_team = [];
+        this.cost_card_num_arr = [0, 0, 0, 0, 0, 0, 0, 0];
         this.get_data_list();
       },
       get_data_list() {
@@ -190,6 +206,7 @@
       build_in(card_id, card_name, card_cost, card_rarity) {
         var vue_this = this;
         var is_in_key = -1;
+        var cost_card_num_arr_key = card_cost > 7 ? 7 : card_cost;
         if (this.card_team_num >= 30) {
           alert('最多30张卡牌');
           return false;
@@ -203,6 +220,7 @@
             color: this.card_color_arr[card_rarity]
           });
           vue_this.card_team_num++;
+          vue_this.cost_card_num_arr[cost_card_num_arr_key]++;
         } else {
           $.each(this.card_team, function (i, v) {
             if (v.id == card_id) {
@@ -212,6 +230,7 @@
                   v.num++;
                   vue_this.card_team[i].num = v.num;
                   vue_this.card_team_num++;
+                  vue_this.cost_card_num_arr[cost_card_num_arr_key]++;
                 } else {
                   //alert('该卡牌最多1张');
                 }
@@ -223,7 +242,6 @@
             }
           });
           if (is_in_key == -1) {
-            vue_this.card_team_num++;
             vue_this.card_team.push({
               id: card_id,
               name: card_name,
@@ -231,6 +249,8 @@
               num: 1,
               color: this.card_color_arr[card_rarity]
             });
+            vue_this.card_team_num++;
+            vue_this.cost_card_num_arr[cost_card_num_arr_key]++;
           }
         }
         vue_this.card_team.sort(this.ascend);

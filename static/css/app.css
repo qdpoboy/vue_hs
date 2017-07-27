@@ -41,7 +41,7 @@ li.active {
   height: 30px;
   width: 20px;
   padding-top: 5px;
-  background-color: #2e6da4;
+  background-color: dodgerblue;
   text-align: center;
   border-radius: 7px;
   color: #FFFFFF;
@@ -67,6 +67,30 @@ li.active {
 .build_right .top .btn {
   width: 100px;
   margin-right: 45px;
+}
+
+.build_right .middle li {
+  display: inline-block;
+  padding: 0 5px;
+}
+
+.build_right .middle li .middle-li-num {
+  text-align: center;
+}
+
+.build_right .middle li .middle-li-height {
+  background-color: dodgerblue;
+  width: 20px;
+  margin-left: 3px;
+}
+
+.build_right .middle li .middle-li-index {
+  background: url(../image/cost.png) no-repeat;
+  height: 25px;
+  width: 25px;
+  line-height: 25px;
+  text-align: center;
+  margin-top: 3px;
 }
 
 .build_right .bottom {
@@ -100,7 +124,7 @@ li.active {
 }
 
 .card_team_li .blue {
-  color: blue;
+  color: dodgerblue;
 }
 
 .card_team_li .violet {
