@@ -119,9 +119,11 @@
         </div>
         <br/>
         <div class="middle">
-          <button type="button" class="btn btn-danger" data-container="body" data-toggle="popover" data-placement="top" data-content="">
-            分享链接{{share_url}}&<template v-for="item in card_team">{{item.id}}:{{item.num}}-</template>
+          <button type="button" class="btn btn-success btn-block js-copy" id="share_url_button" data-container="body"
+                  data-placement="right" data-content="复制成功" data-clipboard-target="#share_url">
+            点击复制分享链接
           </button>
+          <span id="share_url" class="share_url">{{share_url}}&all=<template v-for="item in card_team">{{item.id}}:{{item.num}}-</template></span>
           <br/>
           <li v-for="(item, index) in cost_card_num_arr">
             <div class="middle-li-num">{{item}}</div>
@@ -150,6 +152,8 @@
 </template>
 
 <script>
+  import clipboard from '../../static/js/clipboard.min.js';
+
   export default {
     name: 'build',
     data: function () {
@@ -168,6 +172,20 @@
       }
     },
     mounted: function () {
+      //js实现复制功能--开始
+      var btn = document.getElementById('share_url_button');
+      var clipboard_obj = new clipboard(btn);//实例化
+      //复制成功执行的回调，可选
+      clipboard_obj.on('success', function (e) {
+        $('#share_url_button').popover('show');
+        //2秒后隐藏提示
+        setTimeout("$('#share_url_button').popover('destroy')", 2000);
+      });
+      //复制失败执行的回调，可选
+      clipboard_obj.on('error', function (e) {
+        console.log(e);
+      });
+      //js实现复制功能--结束
       $('[data-toggle="popover"]').popover();
       var r = this.$route.query.r;
       if (r > 0) {

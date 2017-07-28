@@ -74,6 +74,14 @@ li.active {
   padding: 0 5px;
 }
 
+.share_url {
+  width: 100%;
+  height: 20px;
+  line-height: 20px;
+  display: inline-block;
+  overflow: hidden;
+}
+
 .build_right .middle li .middle-li-num {
   text-align: center;
 }
