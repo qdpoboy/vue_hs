@@ -168,7 +168,7 @@
         card_team_num: 0,
         card_team: [],
         cost_card_num_arr: [0, 0, 0, 0, 0, 0, 0, 0],
-        share_url: window.location.href
+        share_url: ''
       }
     },
     mounted: function () {
@@ -189,7 +189,6 @@
       $('[data-toggle="popover"]').popover();
       var r = this.$route.query.r;
       if (r > 0) {
-        //$('#myModal').modal('hide');
         this.is_start_build(r);
       } else {
         this.new_select();
@@ -200,14 +199,37 @@
         $('#myModal').modal({backdrop: 'static'});
       },
       is_start_build(n) {
+        this.share_url = window.location.host + '/#' + this.$route.path + '?r=' + n;
+        var is_form_share_data = this.$route.query.all;
         $('#myModal').modal('hide');
-        this.active_role = n;
-        this.active_cost = -1;
-        this.now_page = 1;
-        this.card_team_num = 0;
-        this.card_team = [];
-        this.cost_card_num_arr = [0, 0, 0, 0, 0, 0, 0, 0];
-        this.get_data_list();
+        if (is_form_share_data) {
+          this.$http.jsonp('http://hs_cms/index.php?m=api&a=get_share_card_list_jsonp', {
+            params: {
+              limit: 12,
+              active_role: n,
+              active_cost: -1,
+              page: 1,
+              share_cards: is_form_share_data
+            }
+          }, {
+            emulateJSON: true
+          }).then(function (res) {
+            this.is_show = true;
+            this.page_num = res.data.page_count;
+            this.card_data = res.data.data;
+            this.build_all(res.data.selected_cards);
+          }, function (res) {
+            console.error(res);
+          });
+        } else {
+          this.active_role = n;
+          this.active_cost = -1;
+          this.now_page = 1;
+          this.card_team_num = 0;
+          this.card_team = [];
+          this.cost_card_num_arr = [0, 0, 0, 0, 0, 0, 0, 0];
+          this.get_data_list();
+        }
       },
       get_data_list() {
         this.is_show = false;
@@ -279,7 +301,24 @@
             vue_this.cost_card_num_arr[cost_card_num_arr_key]++;
           }
         }
-        vue_this.card_team.sort(this.ascend);
+        vue_this.card_team.sort(vue_this.ascend);
+      },
+      build_all(selected_cards){
+        var vue_this = this;
+        vue_this.card_team = [];
+        $.each(selected_cards, function (i, v) {
+          var cost_card_num_arr_key = v.cost > 7 ? 7 : v.cost;
+          vue_this.card_team.push({
+            id: v.id,
+            name: v.name,
+            cost: v.cost,
+            num: v.num,
+            color: vue_this.card_color_arr[v.rarity]
+          });
+          vue_this.card_team_num += Number(v.num);
+          vue_this.cost_card_num_arr[cost_card_num_arr_key] += Number(v.num);
+        });
+        vue_this.card_team.sort(vue_this.ascend);
       },
       ascend(x, y) {
         return x.cost - y.cost;
@@ -287,10 +326,12 @@
       del_card(card_id) {
         var vue_this = this;
         if (vue_this.card_team_num > 0) {
-          $.each(this.card_team, function (i, v) {
+          $.each(vue_this.card_team, function (i, v) {
             if (v.id == card_id) {
+              var cost_card_num_arr_key = v.cost > 7 ? 7 : v.cost;
+              vue_this.cost_card_num_arr[cost_card_num_arr_key]--;
               if (v.num == 1) {
-                vue_this.card_team.splice(i, 1);
+                vue_this.card_team.splice(i, 1);//删除该元素
                 return false;
               } else if (v.num == 2) {
                 v.num--;
