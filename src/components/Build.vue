@@ -13,42 +13,42 @@
             <ul class="list-inline text-center">
               <li>
                 <router-link :to="{path:'/build?r=2'}">
-                  <img @click="is_start_build(2)" src="http://cha.17173.com/hs/img/class/builder_s_2.png">
+                  <img @click="is_start_build(2, 0)" src="http://cha.17173.com/hs/img/class/builder_s_2.png">
                 </router-link>
               </li>
               <li>
                 <router-link :to="{path:'/build?r=3'}">
-                  <img @click="is_start_build(3)" src="http://cha.17173.com/hs/img/class/builder_s_3.png">
+                  <img @click="is_start_build(3, 0)" src="http://cha.17173.com/hs/img/class/builder_s_3.png">
                 </router-link>
               </li>
               <li>
                 <router-link :to="{path:'/build?r=4'}">
-                  <img @click="is_start_build(4)" src="http://cha.17173.com/hs/img/class/builder_s_4.png">
+                  <img @click="is_start_build(4, 0)" src="http://cha.17173.com/hs/img/class/builder_s_4.png">
                 </router-link>
               </li>
               <li>
                 <router-link :to="{path:'/build?r=5'}">
-                  <img @click="is_start_build(5)" src="http://cha.17173.com/hs/img/class/builder_s_5.png">
+                  <img @click="is_start_build(5, 0)" src="http://cha.17173.com/hs/img/class/builder_s_5.png">
                 </router-link>
               </li>
               <li>
                 <router-link :to="{path:'/build?r=6'}">
-                  <img @click="is_start_build(6)" src="http://cha.17173.com/hs/img/class/builder_s_6.png">
+                  <img @click="is_start_build(6, 0)" src="http://cha.17173.com/hs/img/class/builder_s_6.png">
                 </router-link>
               </li>
               <li>
                 <router-link :to="{path:'/build?r=7'}">
-                  <img @click="is_start_build(7)" src="http://cha.17173.com/hs/img/class/builder_s_7.png">
+                  <img @click="is_start_build(7, 0)" src="http://cha.17173.com/hs/img/class/builder_s_7.png">
                 </router-link>
               </li>
               <li>
                 <router-link :to="{path:'/build?r=8'}">
-                  <img @click="is_start_build(8)" src="http://cha.17173.com/hs/img/class/builder_s_8.png">
+                  <img @click="is_start_build(8, 0)" src="http://cha.17173.com/hs/img/class/builder_s_8.png">
                 </router-link>
               </li>
               <li>
                 <router-link :to="{path:'/build?r=9'}">
-                  <img @click="is_start_build(9)" src="http://cha.17173.com/hs/img/class/builder_s_9.png">
+                  <img @click="is_start_build(9, 0)" src="http://cha.17173.com/hs/img/class/builder_s_9.png">
                 </router-link>
               </li>
               <li>
@@ -189,7 +189,7 @@
       $('[data-toggle="popover"]').popover();
       var r = this.$route.query.r;
       if (r > 0) {
-        this.is_start_build(r);
+        this.is_start_build(r, 1);
       } else {
         this.new_select();
       }
@@ -198,15 +198,21 @@
       new_select() {
         $('#myModal').modal({backdrop: 'static'});
       },
-      is_start_build(n) {
+      is_start_build(n, is_form_share) {
         this.share_url = window.location.host + '/#' + this.$route.path + '?r=' + n;
-        var is_form_share_data = this.$route.query.all;
         $('#myModal').modal('hide');
-        if (is_form_share_data) {
+        this.active_role = n;
+        this.active_cost = -1;
+        this.now_page = 1;
+        this.card_team_num = 0;
+        this.card_team = [];
+        this.cost_card_num_arr = [0, 0, 0, 0, 0, 0, 0, 0];
+        if (is_form_share) {
+          var is_form_share_data = this.$route.query.all;
           this.$http.jsonp('https://mood123.com/index1.php?m=api&a=get_share_card_list_jsonp', {
             params: {
               limit: 12,
-              active_role: n,
+              active_role: this.active_role,
               active_cost: -1,
               page: 1,
               share_cards: is_form_share_data
@@ -222,12 +228,6 @@
             console.error(res);
           });
         } else {
-          this.active_role = n;
-          this.active_cost = -1;
-          this.now_page = 1;
-          this.card_team_num = 0;
-          this.card_team = [];
-          this.cost_card_num_arr = [0, 0, 0, 0, 0, 0, 0, 0];
           this.get_data_list();
         }
       },
