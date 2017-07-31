@@ -203,7 +203,7 @@
         var is_form_share_data = this.$route.query.all;
         $('#myModal').modal('hide');
         if (is_form_share_data) {
-          this.$http.jsonp('http://hs_cms/index.php?m=api&a=get_share_card_list_jsonp', {
+          this.$http.jsonp('https://mood123.com/index1.php?m=api&a=get_share_card_list_jsonp', {
             params: {
               limit: 12,
               active_role: n,
