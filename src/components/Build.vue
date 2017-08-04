@@ -269,6 +269,7 @@
           });
           vue_this.card_team_num++;
           vue_this.cost_card_num_arr[cost_card_num_arr_key]++;
+          vue_this.card_team.sort(vue_this.ascend);
         } else {
           $.each(this.card_team, function (i, v) {
             if (v.id == card_id) {
@@ -279,6 +280,7 @@
                   vue_this.card_team[i].num = v.num;
                   vue_this.card_team_num++;
                   vue_this.cost_card_num_arr[cost_card_num_arr_key]++;
+                  vue_this.card_team.sort(vue_this.ascend);
                 } else {
                   //alert('该卡牌最多1张');
                 }
@@ -299,9 +301,9 @@
             });
             vue_this.card_team_num++;
             vue_this.cost_card_num_arr[cost_card_num_arr_key]++;
+            vue_this.card_team.sort(vue_this.ascend);
           }
         }
-        vue_this.card_team.sort(vue_this.ascend);
       },
       build_all(selected_cards){
         var vue_this = this;
