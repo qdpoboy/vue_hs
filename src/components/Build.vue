@@ -199,7 +199,7 @@
         $('#myModal').modal({backdrop: 'static'});
       },
       is_start_build(n, is_form_share) {
-        this.share_url = window.location.host + '/#' + this.$route.path + '?r=' + n;
+        this.share_url = 'http://' + window.location.host + '/#' + this.$route.path + '?r=' + n;
         $('#myModal').modal('hide');
         this.active_role = n;
         this.active_cost = -1;
