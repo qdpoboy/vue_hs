@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import List from '@/components/List'
 import Info from '@/components/Info'
 import Build from '@/components/Build'
-
+import Wgame from '@/components/Wgame'
 
 Vue.use(Router)
 
@@ -28,6 +28,11 @@ export default new Router({
       path: '/build',
       name: 'Build',
       component: Build
+    },
+    {
+      path: '/wgame',
+      name: 'Wgame',
+      component: Wgame
     },
   ]
 })

@@ -142,3 +142,20 @@ li.active {
 .card_team_li .orange {
   color: orange;
 }
+
+/*wgame*/
+.wgame-l-t{
+  height: 300px;
+}
+.wgame-l-m{
+  height: 150px;
+}
+.wgame-l-b{
+  height: 200px;
+}
+.wgame-r-t{
+  height: 450px;
+}
+.wgame-r-b{
+  height: 200px;
+}
