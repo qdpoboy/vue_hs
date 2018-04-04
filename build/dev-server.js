@@ -81,6 +81,17 @@ devMiddleware.waitUntilValid(() => {
 
 var server = app.listen(port)
 
+var io = require('socket.io')(server)
+
+io.on('connection', function(socket) {
+  console.log('启动了Socket.io');
+  socket.on('sendGroupMsg', function(value){
+    console.log('后台收到的消息为' + value);
+    io.emit('receiveGroupMsg', value);
+  })
+  // socket.broadcast.emit('user connected');
+})
+
 module.exports = {
   ready: readyPromise,
   close: () => {

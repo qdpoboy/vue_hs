@@ -30,6 +30,7 @@
             设置<br>
             背包<br>
             技能<br>
+            <span @click="tijiao()">提交socket</span>
           </div>
           <div class="wgame-r-b">
             当前地图：新手村<br>
@@ -71,131 +72,26 @@ export default {
       tabs_health: [{i:0,t:'0'},{i:1,t:'1'},{i:2,t:'2'},{i:3,t:'3'},{i:4,t:'4'},{i:5,t:'5'},{i:6,t:'6'},{i:7,t:'7+'}]
     }
   },
+  sockets:{
+    connect: function(){
+      this.id=this.$socket.id;
+      console.log('socket connected');
+    },
+    customEmit: function(val){
+      console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)')
+    },
+    receiveGroupMsg(val){
+      console.log('接收到的消息为' + val);
+    }
+  },
   mounted: function() {
-    this.get_data_list();
+    this.tijiao();
   },
   methods: {
 
-    get_data_list() {
-      this.is_show = false;
-      //http://hs_cms/index.php?m=api&a=get_card_list_jsonp
-      this.$http.jsonp('https://mood123.com/index1.php?m=api&a=get_card_list_jsonp', {
-        params:{
-          active_role: this.active_role,
-          active_ji: this.active_ji,
-          active_cost: this.active_cost,
-          active_type: this.active_type,
-          active_race: this.active_race,
-          active_rarity: this.active_rarity,
-          active_feat: this.active_feat,
-          active_atk: this.active_atk,
-          active_health: this.active_health,
-          page: this.now_page
-        }
-      }, {
-        emulateJSON: true
-      }).then(function(res) {
-        this.is_show = true;
-        this.page_num = res.data.page_count;
-        this.card_data = res.data.data;
-      }, function(res) {
-        console.error(res);
-      });
-    },
-    toggle_role(i, v) {
-      this.now_page = 1;
-      if(this.active_role == i){//取消选中
-        this.active_role = -1;
-      }else{
-        this.active_role = i;
-      }
-      this.get_data_list();
-    },
-    toggle_ji(i, v) {
-      this.now_page = 1;
-      if(this.active_ji == i){//取消选中
-        this.active_ji = -1;
-      }else{
-        this.active_ji = i;
-      }
-      this.get_data_list();
-    },
-    toggle_cost(i, v) {
-      this.now_page = 1;
-      if(this.active_cost == i){//取消选中
-        this.active_cost = -1;
-      }else{
-        this.active_cost = i;
-      }
-      this.get_data_list();
-    },
-    toggle_type(i, v) {
-      this.now_page = 1;
-      if(this.active_type == i){//取消选中
-        this.active_type = -1;
-      }else{
-        this.active_type = i;
-      }
-      this.get_data_list();
-    },
-    toggle_race(i, v) {
-      this.now_page = 1;
-      if(this.active_race == i){//取消选中
-        this.active_race = -1;
-      }else{
-        this.active_race = i;
-      }
-      this.get_data_list();
-    },
-    toggle_rarity(i, v) {
-      this.now_page = 1;
-      if(this.active_rarity == i){//取消选中
-        this.active_rarity = -1;
-      }else{
-        this.active_rarity = i;
-      }
-      this.get_data_list();
-    },
-    toggle_feat(i, v) {
-      this.now_page = 1;
-      if(this.active_feat == i){//取消选中
-        this.active_feat = -1;
-      }else{
-        this.active_feat = i;
-      }
-      this.get_data_list();
-    },
-    toggle_atk(i, v) {
-      this.now_page = 1;
-      if(this.active_atk == i){//取消选中
-        this.active_atk = -1;
-      }else{
-        this.active_atk = i;
-      }
-      this.get_data_list();
-    },
-    toggle_health(i, v) {
-      this.now_page = 1;
-      if(this.active_health == i){//取消选中
-        this.active_health = -1;
-      }else{
-        this.active_health = i;
-      }
-      this.get_data_list();
-    },
-    toggle_next(){
-      if(this.now_page === this.page_num){
-        return false;
-      }
-      this.now_page = this.now_page + 1;
-      this.get_data_list();
-    },
-    toggle_previous(){
-      if(this.now_page == 1){
-        return false;
-      }
-      this.now_page = this.now_page - 1;
-      this.get_data_list();
+    tijiao(){
+      console.log(this.id);
+      this.$socket.emit('sendGroupMsg', '11111');
     },
   }
 }
