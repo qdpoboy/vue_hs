@@ -52,7 +52,7 @@ export default {
   methods: {
     get_info(){
       //http://hs_cms/index.php?m=api&a=get_card_info_jsonp
-      this.$http.jsonp('https://mood123.com/index1.php?m=api&a=get_card_info_jsonp', {
+      this.$http.jsonp('http://mood123.com/index1.php?m=api&a=get_card_info_jsonp', {
         params:{
           id: this.$route.params.id
         }

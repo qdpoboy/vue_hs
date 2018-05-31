@@ -209,7 +209,7 @@
         this.cost_card_num_arr = [0, 0, 0, 0, 0, 0, 0, 0];
         if (is_form_share) {
           var is_form_share_data = this.$route.query.all;
-          this.$http.jsonp('https://mood123.com/index1.php?m=api&a=get_share_card_list_jsonp', {
+          this.$http.jsonp('http://mood123.com/index1.php?m=api&a=get_share_card_list_jsonp', {
             params: {
               limit: 12,
               active_role: this.active_role,
@@ -234,7 +234,7 @@
       get_data_list() {
         this.is_show = false;
         //http://hs_cms/index.php?m=api&a=get_card_list_jsonp
-        this.$http.jsonp('https://mood123.com/index1.php?m=api&a=get_card_list_jsonp', {
+        this.$http.jsonp('http://mood123.com/index1.php?m=api&a=get_card_list_jsonp', {
           params: {
             limit: 12,
             active_role: this.active_role,

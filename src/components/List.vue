@@ -157,7 +157,7 @@ export default {
     get_data_list() {
       this.is_show = false;
       //http://hs_cms/index.php?m=api&a=get_card_list_jsonp
-      this.$http.jsonp('https://mood123.com/index1.php?m=api&a=get_card_list_jsonp', {
+      this.$http.jsonp('http://mood123.com/index1.php?m=api&a=get_card_list_jsonp', {
         params:{
           active_role: this.active_role,
           active_ji: this.active_ji,
